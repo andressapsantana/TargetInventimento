@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TargetInvestimento.Application.Models.Cliente;
+using TargetInvestimento.Application.Models.Endereco;
 
 namespace TargetInvestimento.Application.Interfaces
 {
@@ -15,5 +16,6 @@ namespace TargetInvestimento.Application.Interfaces
         List<ClienteGetModel> GetAll();
         ClienteGetModel GetEnderecoClientByCpf(string CPF);
         ClienteGetModel GetById(int id);
+        void UpdateEnderecoClienteById(EnderecoUpdateModel model);
     }
 }

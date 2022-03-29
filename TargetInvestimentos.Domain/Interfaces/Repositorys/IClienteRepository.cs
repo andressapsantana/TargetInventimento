@@ -15,5 +15,6 @@ namespace TargetInvestimento.Domain.Interfaces.Repositories
     public interface IClienteRepository : IBaseRepository<Cliente>
     {
         Cliente GetEnderecoClientByCpf(string cpf);
+        void UpdateEnderecoClienteById(Endereco endereco);
     }
 }

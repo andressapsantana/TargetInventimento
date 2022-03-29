@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TargetInvestimento.Application.Models.Endereço
+namespace TargetInvestimento.Application.Models.Endereco
 {
-    class EnderecoCreateModel
+    public class EnderecoCreateModel
     {
         [MinLength(10, ErrorMessage = "Por favor, informe no mínimo {1} caracteres.")]
         [MaxLength(120, ErrorMessage = "Por favor, informe no máximo {1} caracteres.")]

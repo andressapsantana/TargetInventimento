@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TargetInvestimento.Application.Models.Endereço
+namespace TargetInvestimento.Application.Models.Endereco
 {
-    class EnderecoGetModel
+    public class EnderecoGetModel
     {
         public  int IdEndereco { get; set; }
         public string Logradouro { get; set; }

@@ -22,5 +22,15 @@ namespace TargetInvestimento.Domain.Services
         {
             return clienteRepository.GetEnderecoClientByCpf(cpf);
         }
+
+        public void UpdateEnderecoClienteById(Endereco endereco)
+        {
+            #region Atualizar o endereço do cliente
+
+            clienteRepository.UpdateEnderecoClienteById(endereco);
+
+            #endregion
+        }
+
     }
 }

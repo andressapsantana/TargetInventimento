@@ -10,5 +10,6 @@ namespace TargetInvestimento.Domain.Services
     public interface IClienteDomainService : IBaseDomainService <Cliente>
     {
         Cliente GetEnderecoClientByCpf(string cpf);
+        void UpdateEnderecoClienteById(Endereco entidade);
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TargetInvestimento.Application.Interfaces;
 using TargetInvestimento.Application.Models;
 using TargetInvestimento.Application.Models.Cliente;
+using TargetInvestimento.Application.Models.Endereco;
 using TargetInvestimento.Domain.Entities;
 using TargetInvestimento.Domain.Services;
 
@@ -106,6 +107,23 @@ namespace TargetInvestimento.Application.Services
             model.UF = pessoa.Endereco.UF;
 
             return model;
+        }
+
+        public void UpdateEnderecoClienteById(EnderecoUpdateModel model)
+        {
+            var endereco = new Endereco();
+
+            var cliente = _clientedomainservice.GetById(model.IdPessoa);
+
+            endereco.IdEndereco = cliente.Endereco.IdEndereco;
+            endereco.Logradouro = model.Logradouro;
+            endereco.UF = model.UF;
+            endereco.Complemento = model.Complemento;
+            endereco.Cidade = model.Cidade;
+            endereco.CEP = model.CEP;
+            endereco.Bairro = model.Bairro;
+
+            _clientedomainservice.UpdateEnderecoClienteById(endereco);
         }
     }
 }

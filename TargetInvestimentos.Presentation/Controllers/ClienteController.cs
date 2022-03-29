@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TargetInvestimento.Application.Interfaces;
 using TargetInvestimento.Application.Models.Cliente;
+using TargetInvestimento.Application.Models.Endereco;
 
 namespace TargetInvestimento.Presentation.Controllers
 {
@@ -36,7 +37,7 @@ namespace TargetInvestimento.Presentation.Controllers
                     };
 
                     return new JsonResult(resultado);
-                }                    
+                }
 
                 return Ok(new { Mensagem = "Cliente cadastrado com sucesso." });
             }
@@ -67,23 +68,23 @@ namespace TargetInvestimento.Presentation.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult Put(ClienteUpdateModel model)
-        {
-            try
-            {
-                _clienteApplicationService.Update(model);
-                return Ok(new { Mensagem = "Pessoa atualizada com sucesso." });
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode(400, new { Mensagem = e.Message });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, new { Mensagem = e.Message });
-            }
-        }
+        //[HttpPut]
+        //public IActionResult Put(ClienteUpdateModel model)
+        //{
+        //    try
+        //    {
+        //        _clienteApplicationService.Update(model);
+        //        return Ok(new { Mensagem = "Pessoa atualizada com sucesso." });
+        //    }
+        //    catch (ArgumentException e)
+        //    {
+        //        return StatusCode(400, new { Mensagem = e.Message });
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return StatusCode(500, new { Mensagem = e.Message });
+        //    }
+        //}
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -126,6 +127,25 @@ namespace TargetInvestimento.Presentation.Controllers
             try
             {
                 return Ok(_clienteApplicationService.GetById(id));
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode(400, new { Mensagem = e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { Mensagem = e.Message });
+            }
+        }
+
+
+        [HttpPut("UpdateEnderecoClienteById")]
+        public IActionResult UpdateEnderecoClienteById(EnderecoUpdateModel model)
+        {
+            try
+            {
+                _clienteApplicationService.UpdateEnderecoClienteById(model);
+                return Ok(new { Mensagem = "Endereço atualizado com sucesso." });
             }
             catch (ArgumentException e)
             {

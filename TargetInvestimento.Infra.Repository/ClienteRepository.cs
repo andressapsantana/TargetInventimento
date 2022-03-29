@@ -20,6 +20,17 @@ namespace TargetInvestimento.Infra.Repository
             this.connectionString = connectionString;
         }
 
+
+        public void UpdateEnderecoClienteById(Endereco endereco)
+        {
+            var query = "UPDATE ENDERECO SET LOGRADOURO = @LOGRADOURO, BAIRRO = @BAIRRO, UF = @UF, COMPLEMENTO = @COMPLEMENTO, CIDADE = @CIDADE WHERE IDENDERECO = @IDENDERECO";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Execute(query, endereco);
+            }
+        }
+
         public void Create(Cliente obj)
         {
             var query = "INSERT INTO PESSOA (NOMECOMPLETO, DATANASCIMENTO, CPF, RENDAMENSAL) " +
@@ -51,20 +62,7 @@ namespace TargetInvestimento.Infra.Repository
             }
         }
 
-        public void Update(Cliente obj)
-        {
-
-        }
-
-        public void Delete(Cliente obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Cliente> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Cliente GetById(int id)
         {
@@ -119,5 +117,21 @@ namespace TargetInvestimento.Infra.Repository
                 return result;
             }
         }
+        public void Update(Cliente obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Cliente obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Cliente> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
