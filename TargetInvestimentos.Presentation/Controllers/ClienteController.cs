@@ -8,6 +8,10 @@ using Newtonsoft.Json;
 using TargetInvestimento.Application.Interfaces;
 using TargetInvestimento.Application.Models.Cliente;
 using TargetInvestimento.Application.Models.Endereco;
+using System.Net.Http;
+using TargetInvestimento.Application.Models.Estados;
+using TargetInvestimento.Application.Models.IBGE;
+using TargetInvestimento.Application.Models;
 
 namespace TargetInvestimento.Presentation.Controllers
 {
@@ -22,8 +26,8 @@ namespace TargetInvestimento.Presentation.Controllers
             _clienteApplicationService = clienteApplicationService;
         }
 
-        [HttpPost]
-        public IActionResult Post(ClienteCreateModel model)
+        [HttpPost("CreateCliente")]
+        public IActionResult CreateCliente(ClienteCreateModel model)
         {
             try
             {
@@ -51,7 +55,7 @@ namespace TargetInvestimento.Presentation.Controllers
             }
         }
 
-        [HttpGet("Endereco")]
+        [HttpGet("GetEnderecoClienteByCpf")]
         public IActionResult GetEnderecoClienteByCpf(string CPF)
         {
             try
@@ -68,23 +72,35 @@ namespace TargetInvestimento.Presentation.Controllers
             }
         }
 
-        //[HttpPut]
-        //public IActionResult Put(ClienteUpdateModel model)
-        //{
-        //    try
-        //    {
-        //        _clienteApplicationService.Update(model);
-        //        return Ok(new { Mensagem = "Pessoa atualizada com sucesso." });
-        //    }
-        //    catch (ArgumentException e)
-        //    {
-        //        return StatusCode(400, new { Mensagem = e.Message });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, new { Mensagem = e.Message });
-        //    }
-        //}
+        [HttpGet("GetUFs")]
+        public JsonResult GetUFs()
+        {
+            try
+            {
+                var UFs = _clienteApplicationService.GetUFs();
+                return new JsonResult(UFs);
+
+            }
+            catch (ArgumentException e)
+            {
+                return new JsonResult(500, new { Mensagem = e.Message });
+            }
+
+        }
+
+        [HttpGet("GetCidadesByUF")]
+        public JsonResult GetCidadesByUF(int idUF)
+        {
+            try
+            { 
+                return new JsonResult(_clienteApplicationService.GetCidadesByUF(idUF));
+            }
+            catch (ArgumentException e)
+            {
+                return new JsonResult(500, new { Mensagem = e.Message });
+            }
+
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

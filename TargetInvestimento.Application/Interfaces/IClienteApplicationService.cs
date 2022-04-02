@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TargetInvestimento.Application.Models;
 using TargetInvestimento.Application.Models.Cliente;
 using TargetInvestimento.Application.Models.Endereco;
+using TargetInvestimento.Application.Models.IBGE;
 
 namespace TargetInvestimento.Application.Interfaces
 {
@@ -17,5 +19,8 @@ namespace TargetInvestimento.Application.Interfaces
         ClienteGetModel GetEnderecoClientByCpf(string CPF);
         ClienteGetModel GetById(int id);
         void UpdateEnderecoClienteById(EnderecoUpdateModel model);
+
+        IList<UFModel> GetUFs();
+        IList<MicrorregiaoModel> GetCidadesByUF(int idUF);
     }
 }

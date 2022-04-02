@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TargetInvestimento.Application.Interfaces;
 using TargetInvestimento.Application.Models;
 using TargetInvestimento.Application.Models.Cliente;
 using TargetInvestimento.Application.Models.Endereco;
+using TargetInvestimento.Application.Models.IBGE;
 using TargetInvestimento.Domain.Entities;
 using TargetInvestimento.Domain.Services;
 
@@ -124,6 +127,32 @@ namespace TargetInvestimento.Application.Services
             endereco.Bairro = model.Bairro;
 
             _clientedomainservice.UpdateEnderecoClienteById(endereco);
+        }
+
+        public IList<UFModel> GetUFs()
+        {
+            var httpClient = new HttpClient();
+
+            var url = new Uri("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+            var result = httpClient.GetAsync(url).GetAwaiter().GetResult();
+            var resultContent = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            var UFs = JsonConvert.DeserializeObject<List<UFModel>>(resultContent);
+
+            return UFs;
+        }
+
+        public IList<MicrorregiaoModel> GetCidadesByUF(int idUF)
+        {
+            var httpClient = new HttpClient();
+
+            var url = new Uri("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + idUF + "/microrregioes");
+            var result = httpClient.GetAsync(url).GetAwaiter().GetResult();
+            var resultContent = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            var cidades = JsonConvert.DeserializeObject<List<MicrorregiaoModel>>(resultContent);
+
+            return cidades;
         }
     }
 }
