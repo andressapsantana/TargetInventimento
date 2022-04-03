@@ -32,5 +32,7 @@ namespace TargetInvestimento.Domain.Services
             #endregion
         }
 
+
+
     }
 }

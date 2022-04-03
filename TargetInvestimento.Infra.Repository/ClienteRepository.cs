@@ -129,7 +129,23 @@ namespace TargetInvestimento.Infra.Repository
 
         public List<Cliente> GetAll()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM PESSOA P INNER JOIN ENDERECO E ON P.IDPESSOA = E.IDPESSOA";
+
+            using(var connection = new SqlConnection(connectionString))
+            {
+                var result = connection.Query(query, (Cliente p, Endereco e)
+                    =>
+                { p.Endereco = e; return p; }, splitOn: "IDENDERECO").ToList();
+
+                //return connection.Query
+                //(query, (Candidato c, Usuario u) => { c.Usuario = u; return c; },
+                //splitOn: "IdUsuario").ToList();
+
+
+                return result;
+            }
+
+
         }
 
 

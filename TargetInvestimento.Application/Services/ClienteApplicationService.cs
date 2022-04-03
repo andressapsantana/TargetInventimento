@@ -71,6 +71,13 @@ namespace TargetInvestimento.Application.Services
                 model.IdPessoa = item.IdPessoa;
                 model.NomeCompleto = item.NomeCompleto;
                 model.CPF = item.CPF;
+                model.Bairro = item.Endereco.Bairro;
+                model.CEP = item.Endereco.CEP;
+                model.Cidade = item.Endereco.Cidade;
+                model.Complemento = item.Endereco.Complemento;
+                model.Logradouro = item.Endereco.Logradouro;
+                model.UF = item.Endereco.UF;
+
                 pessoa.Add(model);
             }
             return pessoa;

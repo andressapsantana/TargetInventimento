@@ -12,6 +12,7 @@ using System.Net.Http;
 using TargetInvestimento.Application.Models.Estados;
 using TargetInvestimento.Application.Models.IBGE;
 using TargetInvestimento.Application.Models;
+using TargetInvestimento.Presentation.Helpers;
 
 namespace TargetInvestimento.Presentation.Controllers
 {
@@ -20,6 +21,7 @@ namespace TargetInvestimento.Presentation.Controllers
     public class ClientesController : ControllerBase
     {
         private readonly IClienteApplicationService _clienteApplicationService;
+
         public ClientesController
             (IClienteApplicationService clienteApplicationService)
         {
@@ -31,7 +33,13 @@ namespace TargetInvestimento.Presentation.Controllers
         {
             try
             {
-                _clienteApplicationService.Create(model);
+
+                if (model.CPF == null && Helpers.Helpers.VerificarCpf(model.CPF) == false)
+                    return StatusCode(422, new { Mensagem = "Por favor informe um CPF válido." });
+                if (_clienteApplicationService.GetAll().Where(p => p.CPF == model.CPF) != null)
+                    return StatusCode(422, new { Mensagem = "CPF já cadastrado como cliente." });
+                else
+                    _clienteApplicationService.Create(model);
 
                 if (model.RendaMensal >= 6000)
                 {
@@ -92,7 +100,7 @@ namespace TargetInvestimento.Presentation.Controllers
         public JsonResult GetCidadesByUF(int idUF)
         {
             try
-            { 
+            {
                 return new JsonResult(_clienteApplicationService.GetCidadesByUF(idUF));
             }
             catch (ArgumentException e)
